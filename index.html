@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rankd | Transforme seu treino em competição</title>
+<meta name="description" content="Rankd é o app que transforma seu treino em competição. Desafie amigos, use poderes e suba no ranking. Entre na lista e seja um dos primeiros a testar.">
+<meta name="theme-color" content="#030202">
+<link rel="canonical" href="https://rankd-app.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rankd-app.com/">
+<meta property="og:site_name" content="Rankd">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Rankd | Transforme seu treino em competição">
+<meta property="og:description" content="Desafie amigos, use poderes e suba no ranking. Entre na lista de espera do Rankd.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23C8EB11'/%3E%3Cpath fill='%23030202' d='M20 22l12 9 18-17 18 17 12-9-5 18H25z'/%3E%3Cpath fill='%23030202' d='M24 46h38a15 15 0 0 1 0 30H56l20 18H55L35 76h26a5 5 0 0 0 0-10H28z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800;1,900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   RANKD | Landing page
+   Cores e tipografia seguem o Guia de Marca v1.0
+   ========================================================= */
+:root{
+  --lime:#C8EB11;
+  --black:#030202;
+  --grey:#181818;
+  --grey-2:#232323;
+  --white:#FFFFFF;
+  --muted:#A8A8A8;
+  --line:rgba(255,255,255,.09);
+  --lime-soft:rgba(200,235,17,.12);
+  --display:'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
+  --body:'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--black);color:var(--white);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.display{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;line-height:.88;letter-spacing:-.005em}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Botões (inclinados, como no guia) ---------- */
+.btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  color:var(--black);font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:.04em;text-transform:uppercase;
+  text-decoration:none;border:0;background:none;padding:15px 30px;cursor:pointer;white-space:nowrap;transition:transform .15s ease}
+.btn::before{content:"";position:absolute;inset:0;background:var(--lime);transform:skewX(-14deg);z-index:-1}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.btn-dark{color:var(--lime)}
+.btn-dark::before{background:var(--black)}
+.btn-sm{font-size:16px;padding:10px 22px}
+
+/* ---------- Navegação ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(3,2,2,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:30px;height:30px}
+.brand span{font-family:var(--display);font-weight:900;font-style:italic;font-size:28px;letter-spacing:.02em}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a:not(.btn){text-decoration:none;font-weight:600;font-size:15px;color:#d4d4d4}
+.nav-links a:not(.btn):hover{color:var(--lime)}
+@media (max-width:860px){.nav-links a:not(.btn){display:none}}
+@media (max-width:420px){.nav .btn-sm{font-size:14px;padding:9px 16px}.brand span{font-size:24px}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:72px 0 104px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse at 70% 40%,#000 30%,transparent 75%)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(68px,11.5vw,150px)}
+.hero h1 span{display:block}
+.hero h1 .go{color:var(--lime)}
+.lede{font-size:clamp(18px,2vw,21px);color:#d0d0d0;max-width:30em;margin:28px 0 32px}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr;gap:56px}.hero{padding:48px 0 80px}}
+
+/* ---------- Formulários ---------- */
+.signup{display:flex;gap:14px;max-width:580px}
+.signup .field{min-width:220px}
+.field{flex:1;min-width:0;background:var(--grey);border:1px solid #333;color:var(--white);font:inherit;font-size:16px;padding:15px 18px;border-radius:2px}
+.field::placeholder{color:#7d7d7d}
+.field:focus{outline:none;border-color:var(--lime)}
+.form-note{font-size:14px;color:var(--muted);margin-top:14px}
+.form-note strong{color:var(--lime);font-weight:700}
+.form-status{margin-top:12px;font-weight:600;font-size:15px;min-height:1.5em}
+.form-status.ok{color:var(--lime)}
+.form-status.err{color:#ff8f8f}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+@media (max-width:560px){.signup{flex-direction:column}.signup .btn{width:100%}.signup .field{min-width:0}}
+
+/* ---------- Ranking ao vivo (hero) ---------- */
+.board{position:relative;background:#090909;border:1px solid rgba(200,235,17,.45);box-shadow:0 0 70px rgba(200,235,17,.13);padding:22px 20px 18px}
+.board::before{content:"";position:absolute;top:-1px;right:-1px;border-style:solid;border-width:0 34px 34px 0;border-color:transparent var(--lime) transparent transparent}
+.board-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;padding-right:26px}
+.board-head strong{font-family:var(--display);font-weight:800;font-size:17px;color:var(--lime);letter-spacing:.06em;text-transform:uppercase}
+.board-head span{font-size:13px;color:var(--muted)}
+.rows{position:relative;height:232px}
+.row{position:absolute;left:0;right:0;top:0;height:50px;display:grid;grid-template-columns:26px minmax(96px,1fr) auto 72px;align-items:center;gap:12px;padding:0 12px;border:1px solid transparent;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.row.me{background:var(--lime-soft);border-color:rgba(200,235,17,.55)}
+.pos{font-family:var(--display);font-weight:800;font-size:18px;color:var(--muted)}
+.pname{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me .pos,.me .pname{color:var(--lime)}
+.power{white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(200,235,17,.4);padding:3px 7px}
+.score{font-family:var(--display);font-weight:800;font-size:21px;text-align:right;font-variant-numeric:tabular-nums}
+.toast{margin-top:6px;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:#d0d0d0;min-height:46px}
+.toast b{color:var(--lime)}
+.toast.pop{animation:pop .45s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.board{container-type:inline-size}
+@container (max-width:470px){.power{display:none}.row{grid-template-columns:26px 1fr 72px}}
+
+/* ---------- Seções ---------- */
+section{padding:112px 0}
+.sec-head{max-width:760px;margin-bottom:60px}
+.sec-head h2{font-size:clamp(46px,6.4vw,84px)}
+.sec-head p{font-size:19px;color:#bdbdbd;margin-top:20px;max-width:34em}
+@media (max-width:720px){section{padding:80px 0}.sec-head{margin-bottom:44px}}
+
+/* ---------- Loop (como funciona) ---------- */
+.loop{background:var(--lime);color:var(--black);clip-path:polygon(0 48px,100% 0,100% calc(100% - 48px),0 100%);padding:150px 0}
+.loop .sec-head p{color:#2a2d0a}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s;list-style:none}
+.step{position:relative;padding:0 28px 0 0}
+.step + .step{padding-left:28px;border-left:2px solid rgba(3,2,2,.85)}
+.step .n{font-family:var(--display);font-weight:900;font-style:italic;font-size:76px;line-height:1;-webkit-text-stroke:2px var(--black);color:transparent;margin-bottom:10px}
+.step h3{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:34px;line-height:.95;margin-bottom:10px}
+.step p{font-size:16px;font-weight:500;color:#25280a}
+.loop-back{margin-top:56px;font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(28px,3.6vw,46px);line-height:1}
+.loop-back svg{display:inline-block;width:.9em;height:.9em;vertical-align:-.1em;margin-right:.25em}
+@media (max-width:900px){
+  .loop{padding:110px 0;clip-path:polygon(0 28px,100% 0,100% calc(100% - 28px),0 100%)}
+  .steps{grid-template-columns:1fr 1fr;row-gap:40px}
+  .step:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:520px){.steps{grid-template-columns:1fr}.step,.step + .step{padding:0 0 0 22px;border-left:2px solid rgba(3,2,2,.85)}}
+
+/* ---------- Funcionalidades ---------- */
+.features-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start}
+.features-grid .sec-head{position:sticky;top:110px;margin-bottom:0}
+.feature-list{list-style:none;border-top:1px solid var(--line)}
+.feature{display:grid;grid-template-columns:52px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid var(--line)}
+.feature .ico{width:52px;height:52px;display:grid;place-items:center;background:var(--grey);border:1px solid #2c2c2c}
+.feature .ico svg{width:26px;height:26px;stroke:var(--lime);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feature h3{font-family:var(--display);font-weight:800;font-style:italic;font-size:30px;text-transform:uppercase;line-height:1;margin:4px 0 8px}
+.feature p{color:#bdbdbd;max-width:36em}
+.feature.star{border-left:3px solid var(--lime);padding-left:18px;background:linear-gradient(90deg,var(--lime-soft),transparent 70%)}
+.feature.star .tag{display:inline-block;margin-left:10px;font-family:var(--body);font-style:normal;font-size:12px;font-weight:700;letter-spacing:.03em;background:var(--lime);color:var(--black);padding:2px 8px;vertical-align:middle}
+@media (max-width:900px){.features-grid{grid-template-columns:1fr;gap:40px}.features-grid .sec-head{position:static}}
+
+/* ---------- Telas do app ---------- */
+.screens{background:var(--grey);position:relative;overflow:hidden}
+.screens::after{content:"";position:absolute;width:340px;height:140%;top:-20%;right:8%;background:var(--lime);opacity:.06;transform:skewX(-18deg);pointer-events:none}
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;align-items:end;position:relative;z-index:1}
+.phone-fig{text-align:center}
+.phone-fig.mid{transform:translateY(-44px)}
+.phone{width:100%;max-width:284px;margin:0 auto;aspect-ratio:9/18.5;background:#000;border:2px solid #303030;border-radius:40px;padding:9px;box-shadow:0 34px 80px rgba(0,0,0,.55);text-align:left}
+.screen{height:100%;border-radius:32px;overflow:hidden;position:relative;background:#0b0b0b;padding:46px 15px 16px;display:flex;flex-direction:column;gap:12px}
+.screen::before{content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);width:84px;height:22px;background:#000;border-radius:12px}
+.phone-fig figcaption{margin-top:22px;font-weight:600;color:#d4d4d4}
+.phone-fig figcaption b{display:block;font-family:var(--display);font-style:italic;font-weight:800;font-size:24px;text-transform:uppercase;color:var(--white);margin-bottom:2px}
+@media (max-width:900px){
+  .phones{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:20px;padding:10px 4px 24px;margin:0 -24px;padding-left:24px;padding-right:24px}
+  .phone-fig{flex:0 0 74%;max-width:300px;scroll-snap-align:center}
+  .phone-fig.mid{transform:none}
+}
+/* conteúdo das telas */
+.appbar{display:flex;align-items:center;justify-content:space-between}
+.appbar .mini{display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:900;font-style:italic;font-size:18px}
+.appbar .mini svg{width:18px;height:18px}
+.appbar small{font-size:11px;color:var(--muted)}
+.me-card{background:var(--grey-2);border:1px solid #333;padding:12px;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center}
+.avatar{width:34px;height:34px;border-radius:50%;background:#3a3a3a;display:grid;place-items:center;font-weight:700;font-size:13px;color:#ddd}
+.me-card .who{font-weight:700;font-size:14px;line-height:1.2}
+.me-card .who small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.me-card .big{font-family:var(--display);font-weight:900;font-style:italic;font-size:30px;color:var(--lime);line-height:1}
+.streak{font-size:11px;color:#cfcfcf;display:flex;align-items:center;gap:6px}
+.bar{flex:1;height:5px;background:#2e2e2e;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:64%;background:var(--lime)}
+.mini-list{display:flex;flex-direction:column;gap:6px}
+.mini-row{display:grid;grid-template-columns:16px 26px 1fr auto;align-items:center;gap:8px;font-size:13px;padding:7px 8px;background:#141414}
+.mini-row .avatar{width:26px;height:26px;font-size:11px}
+.mini-row b{font-family:var(--display);font-weight:800;font-size:15px}
+.mini-row.hl{background:var(--lime);color:var(--black)}
+.mini-row.hl .avatar{background:var(--black);color:var(--lime)}
+.app-btn{margin-top:auto;background:var(--lime);color:var(--black);text-align:center;font-weight:700;font-size:14px;padding:11px;border-radius:999px}
+.screen.lime{background:var(--lime);color:var(--black);justify-content:center;text-align:center;gap:14px}
+.screen.lime .x{position:absolute;top:44px;right:18px;font-weight:700}
+.screen.lime .huge{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:48px;line-height:.86}
+.screen.lime p{font-size:14px;font-weight:600;padding:0 6px}
+.screen.lime .bolt{width:64px;height:64px;margin:0 auto;stroke:var(--black);fill:none;stroke-width:1.8;stroke-linejoin:round}
+.dark-btn{background:var(--black);color:var(--lime);font-weight:700;font-size:14px;padding:11px;border-radius:999px;margin:6px 10px 0}
+.screen.up{justify-content:center;text-align:center;gap:6px}
+.screen.up .crown{width:46px;height:46px;margin:0 auto 8px;fill:var(--lime)}
+.screen.up .t{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:30px;line-height:.9}
+.screen.up .rank{font-family:var(--display);font-weight:900;font-style:italic;font-size:118px;line-height:.9;color:var(--lime);margin:8px 0 0}
+.screen.up .delta{font-weight:700;color:var(--lime);font-size:15px}
+.screen.up p{font-size:13px;color:#cfcfcf;margin-top:10px}
+
+/* ---------- Para quem ---------- */
+.sports{display:flex;flex-wrap:wrap;gap:6px 26px;list-style:none}
+.sports li{font-family:var(--display);font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(38px,6vw,76px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #5a5a5a;transition:color .2s,-webkit-text-stroke-color .2s}
+.sports li:hover{color:var(--lime);-webkit-text-stroke-color:var(--lime)}
+.who-note{margin-top:44px;font-size:19px;color:#cfcfcf;max-width:38em}
+
+/* ---------- Depoimentos ---------- */
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.quote{border-left:3px solid var(--lime);padding:6px 0 6px 24px}
+.quote blockquote{font-size:19px;line-height:1.5;color:#e6e6e6}
+.quote blockquote::before{content:"\201C";display:block;font-family:var(--display);font-weight:900;font-size:64px;line-height:.6;color:var(--lime);margin-bottom:10px}
+.quote figcaption{margin-top:16px;font-weight:700}
+.quote figcaption span{display:block;font-weight:500;font-size:14px;color:var(--muted)}
+.quotes-empty{border:1px dashed #3a3a3a;padding:44px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.quotes-empty h3{font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;font-size:34px;line-height:1;margin-bottom:10px}
+.quotes-empty p{color:#bdbdbd;max-width:36em}
+@media (max-width:720px){.quotes-empty{grid-template-columns:1fr;padding:30px}}
+
+/* ---------- CTA final ---------- */
+.cta{padding-top:40px}
+.cta-box{background:var(--lime);color:var(--black);padding:64px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),calc(100% - 36px) 100%,0 100%)}
+.cta-box h2{font-size:clamp(46px,6vw,80px)}
+.cta-box .perks{list-style:none;margin-top:24px;display:grid;gap:10px;font-weight:600}
+.cta-box .perks li{display:flex;gap:10px;align-items:baseline}
+.cta-box .perks li::before{content:"";width:10px;height:10px;background:var(--black);transform:skewX(-14deg) translateY(-1px);flex:none}
+.cta-form{display:grid;gap:12px}
+.cta-form .field{background:var(--white);border-color:var(--white);color:var(--black)}
+.cta-form .field:focus{border-color:var(--black)}
+.cta-form select.field{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#030202 50%),linear-gradient(135deg,#030202 50%,transparent 50%);background-position:calc(100% - 22px) 50%,calc(100% - 16px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.cta-form .btn{margin-top:6px}
+.cta-form .form-note{color:#2a2d0a}
+.cta-form .form-status.ok{color:var(--black)}
+.cta-form .form-status.err{color:#8a0d0d}
+@media (max-width:900px){.cta-box{grid-template-columns:1fr;padding:40px 26px;gap:32px}}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:24px 40px 24px 0;position:relative;font-family:var(--display);font-weight:800;font-style:italic;text-transform:uppercase;font-size:26px;line-height:1.1}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);color:var(--lime);font-size:34px;font-style:normal;transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq details p{padding:0 0 26px;color:#c4c4c4;max-width:40em}
+
+/* ---------- Rodapé ---------- */
+footer{border-top:1px solid var(--line);padding:48px 0 40px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:center}
+.foot p{color:var(--muted);font-size:14px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{text-decoration:none;font-weight:600;color:#d4d4d4}
+.foot-links a:hover{color:var(--lime)}
+</style>
+</head>
+<body>
+
+<!-- Símbolo do logo (coroa + R). Substitua pelo arquivo SVG oficial do logo quando tiver. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 100 100">
+    <path d="M14 20l14 11 22-21 22 21 14-11-6 24H20z"/>
+    <path d="M20 50h42a17 17 0 0 1 0 34h-6l22 16H54L32 84h29a6 6 0 0 0 0-12H24z"/>
+  </symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#topo" aria-label="Rankd, início">
+      <svg fill="#C8EB11"><use href="#logo"/></svg>
+      <span>RANKD</span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#app">O app</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a class="btn btn-sm" href="#lista">Entrar na lista</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 id="hero-title" class="display">
+          <span>Treine.</span>
+          <span>Compita.</span>
+          <span class="go">Suba.</span>
+        </h1>
+        <p class="lede">O app que transforma seu treino em competição. Desafie amigos, use poderes e suba no ranking, seja na corrida, na academia, no box ou no tatame.</p>
+
+        <form class="signup" data-signup="hero" novalidate>
+          <label class="visually-hidden" for="hero-email">Seu e-mail</label>
+          <input class="field" id="hero-email" type="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+          <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn" type="submit">Quero acesso antecipado</button>
+        </form>
+        <p class="form-status" role="status" aria-live="polite" data-for="hero"></p>
+        <p class="form-note">Os <strong>100 primeiros</strong> entram como Fundadores e testam o Rankd antes de todo mundo.</p>
+      </div>
+
+      <div class="board" aria-label="Exemplo de ranking ao vivo">
+        <div class="board-head">
+          <strong>Ranking ao vivo</strong>
+          <span>Liga do Box</span>
+        </div>
+        <div class="rows" id="rows"></div>
+        <p class="toast" id="toast" aria-live="off">Você está em <b>#4</b>. Dá pra passar o SWIFT_REX hoje.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMO FUNCIONA ================= -->
+  <section class="loop" id="como-funciona" aria-labelledby="loop-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="loop-title" class="display">Todo treino vale posição.</h2>
+        <p>O Rankd não é mais um app de registrar treino. É um jogo de fitness jogado com pessoas reais.</p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <div class="n" aria-hidden="true">1</div>
+          <h3>Treine</h3>
+          <p>Corrida, academia, CrossFit, BJJ, bike. Registre o que você fez.</p>
+        </li>
+        <li class="step">
+          <div class="n" aria-hidden="true">2</div>
+          <h3>Ganhe pontos</h3>
+          <p>Cada treino vira pontos. Consistência rende mais que um dia heroico.</p>
+        </li>
+        <li class="step">
+          <div class="n" aria-hidden="true">3</div>
+          <h3>Suba no ranking</h3>
+          <p>Passe seus amigos na liga e veja exatamente quem está logo acima.</p>
+        </li>
+        <li class="step">
+          <div class="n" aria-hidden="true">4</div>
+          <h3>Seja desafiado</h3>
+          <p>Alguém vai vir atrás do seu lugar. E aí, você treina de novo.</p>
+        </li>
+      </ol>
+      <p class="loop-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg>
+        Não dá pra perder minha posição.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= FUNCIONALIDADES ================= -->
+  <section id="funcionalidades" aria-labelledby="feat-title">
+    <div class="wrap features-grid">
+      <div class="sec-head">
+        <h2 id="feat-title" class="display">O que tem no Rankd.</h2>
+        <p>Tudo que transforma treino solitário em competição entre amigos. Simples de entender, difícil de largar.</p>
+      </div>
+
+      <ul class="feature-list">
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg></span>
+          <div><h3>Rankings</h3><p>Veja onde você está e quem está logo acima. Sempre atualizado.</p></div>
+        </li>
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+          <div><h3>Ligas</h3><p>Crie uma liga com os amigos, com sua academia ou com seu box. Cada temporada, uma briga nova.</p></div>
+        </li>
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.4 2.7-6 6-6s6 2.6 6 6M15.5 14.5c3 0 5.5 2 5.5 5.5"/></svg></span>
+          <div><h3>Times</h3><p>Junte seu grupo, some pontos juntos e enfrente outros times.</p></div>
+        </li>
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 20L20 4M14 4h6v6M20 20L4 4M4 10V4h6"/></svg></span>
+          <div><h3>Rivalidades</h3><p>Escolha quem você quer superar. E descubra quem está de olho em você.</p></div>
+        </li>
+        <li class="feature star">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
+          <div><h3>Poderes <span class="tag">Só no Rankd</span></h3><p>Dobre seus pontos, bloqueie um ataque, reverta uma ultrapassagem. Treino com estratégia.</p></div>
+        </li>
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4.5-10-2 2-3 4-3 6-1-1-2-2-2.2-4C6.5 10 5 12.8 5 15c0 4 3 7 7 7z"/></svg></span>
+          <div><h3>Streaks</h3><p>Sua consistência vira sequência. E quebrar a sequência dói.</p></div>
+        </li>
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4.5v1A3.5 3.5 0 0 0 8 10.5M16 6h3.5v1A3.5 3.5 0 0 1 16 10.5M12 13v4M8 21h8M9.5 17h5"/></svg></span>
+          <div><h3>Desafios</h3><p>Competições com regra própria: 20 treinos no mês, 100 km, o que a liga decidir.</p></div>
+        </li>
+        <li class="feature">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.2L12 17.4l-5.5 2.9 1-6.2L3 9.7l6.2-.9z"/></svg></span>
+          <div><h3>Pontos</h3><p>Sua moeda de competição. Qualquer modalidade conta.</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= TELAS DO APP ================= -->
+  <section class="screens" id="app" aria-labelledby="app-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="app-title" class="display">Por dentro do app.</h2>
+        <p>Uma prévia de como o Rankd funciona na palma da mão.</p>
+      </div>
+
+      <div class="phones">
+        <!-- Tela 1: liga -->
+        <figure class="phone-fig">
+          <div class="phone"><div class="screen">
+            <div class="appbar">
+              <span class="mini"><svg fill="#C8EB11"><use href="#logo"/></svg>RANKD</span>
+              <small>Liga do Box</small>
+            </div>
+            <div class="me-card">
+              <span class="avatar">VC</span>
+              <span class="who">Você<small>2.640 pts</small></span>
+              <span class="big">#2</span>
+            </div>
+            <div class="streak">🔥 Streak 7 dias <span class="bar"><i></i></span></div>
+            <div class="mini-list">
+              <div class="mini-row"><span>1</span><span class="avatar">LU</span><span>Lucas</span><b>2.860</b></div>
+              <div class="mini-row hl"><span>2</span><span class="avatar">VC</span><span>Você</span><b>2.640</b></div>
+              <div class="mini-row"><span>3</span><span class="avatar">RA</span><span>Rafa</span><b>2.590</b></div>
+              <div class="mini-row"><span>4</span><span class="avatar">BI</span><span>Bia</span><b>2.480</b></div>
+            </div>
+            <div class="app-btn">Registrar treino</div>
+          </div></div>
+          <figcaption><b>Sua liga, ao vivo</b>Quem está na frente, quem está colado.</figcaption>
+        </figure>
+
+        <!-- Tela 2: desafio -->
+        <figure class="phone-fig mid">
+          <div class="phone"><div class="screen lime">
+            <span class="x" aria-hidden="true">✕</span>
+            <svg class="bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+            <div class="huge">Desafio aceito!</div>
+            <p>Rafa te desafiou: 5 treinos até domingo. Topa?</p>
+            <div class="dark-btn">Ver desafio</div>
+          </div></div>
+          <figcaption><b>Desafie e seja desafiado</b>Rivalidade saudável é o melhor pré-treino.</figcaption>
+        </figure>
+
+        <!-- Tela 3: subiu no ranking -->
+        <figure class="phone-fig">
+          <div class="phone"><div class="screen up">
+            <svg class="crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>
+            <div class="t">Seu ranking<br>subiu!</div>
+            <div class="rank">#7</div>
+            <div class="delta">+2 posições</div>
+            <p>Você acabou de passar a Bia e o Lucas.</p>
+            <div class="app-btn">Compartilhar</div>
+          </div></div>
+          <figcaption><b>Cada subida conta</b>E dá vontade de mostrar pra todo mundo.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PARA QUEM ================= -->
+  <section aria-labelledby="who-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="who-title" class="display">Qualquer treino conta.</h2>
+      </div>
+      <ul class="sports">
+        <li>Corrida</li><li>Academia</li><li>CrossFit</li><li>BJJ</li><li>Artes marciais</li><li>Caminhada</li><li>Ciclismo</li><li>Esportes</li>
+      </ul>
+      <p class="who-note">Você não precisa ser atleta de elite. Precisa de alguém pra superar. Rankd é pra quem já treina, tem amigos ou uma turma que também treina, e quer um motivo a mais pra não faltar.</p>
+    </div>
+  </section>
+
+  <!-- ================= DEPOIMENTOS ================= -->
+  <section id="depoimentos" aria-labelledby="dep-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="dep-title" class="display">Quem já está competindo.</h2>
+      </div>
+      <!-- Preenchido automaticamente pela lista DEPOIMENTOS no script abaixo -->
+      <div id="quotes">
+        <div class="quotes-empty">
+          <div>
+            <h3>Os primeiros depoimentos vêm do grupo de teste.</h3>
+            <p>Estamos abrindo o Rankd para um grupo pequeno antes do lançamento. Entre na lista e o seu pode ser o primeiro aqui.</p>
+          </div>
+          <a class="btn" href="#lista">Quero testar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA FINAL ================= -->
+  <section class="cta" id="lista" aria-labelledby="cta-title">
+    <div class="wrap">
+      <div class="cta-box">
+        <div>
+          <h2 id="cta-title" class="display">Seja um dos 100 Fundadores.</h2>
+          <ul class="perks">
+            <li>Acesso ao Rankd antes do lançamento</li>
+            <li>Contato direto com quem está construindo o app</li>
+            <li>Selo de Fundador no seu perfil</li>
+          </ul>
+        </div>
+        <div>
+          <form class="cta-form" data-signup="fundadores" novalidate>
+            <label class="visually-hidden" for="f-nome">Seu nome</label>
+            <input class="field" id="f-nome" type="text" name="nome" placeholder="Seu nome" autocomplete="given-name">
+            <label class="visually-hidden" for="f-email">Seu e-mail</label>
+            <input class="field" id="f-email" type="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+            <label class="visually-hidden" for="f-mod">Sua modalidade</label>
+            <select class="field" id="f-mod" name="modalidade">
+              <option value="">Qual é o seu treino?</option>
+              <option>Corrida</option><option>Academia</option><option>CrossFit</option><option>BJJ / Artes marciais</option>
+              <option>Caminhada</option><option>Ciclismo</option><option>Esportes coletivos</option><option>Outro</option>
+            </select>
+            <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn-dark" type="submit">Quero ser Fundador</button>
+            <p class="form-status" role="status" aria-live="polite" data-for="fundadores"></p>
+            <p class="form-note">Usamos seu e-mail só para falar sobre o Rankd. Sem spam. Para sair da lista, é só responder qualquer e-mail nosso.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="faq-title" class="display">Perguntas rápidas.</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Quando o Rankd lança?</summary>
+          <p>Primeiro vem um teste com um grupo pequeno. Quem está na lista recebe o convite antes de todo mundo e fica sabendo da data de lançamento em primeira mão.</p>
+        </details>
+        <details>
+          <summary>Vai ser pago?</summary>
+          <p>O essencial do Rankd vai ser gratuito: registrar treinos, ranking, ligas e competir com os amigos.</p>
+        </details>
+        <details>
+          <summary>Preciso ser atleta?</summary>
+          <p>Não. Você compete com seus amigos e com a sua turma, no seu nível. O que conta é aparecer pra treinar.</p>
+        </details>
+        <details>
+          <summary>Funciona para o meu esporte?</summary>
+          <p>Rankd foi pensado para qualquer atividade física: corrida, academia, CrossFit, BJJ, ciclismo, caminhada e esportes em geral.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#topo" aria-label="Rankd, voltar ao topo">
+      <svg fill="#C8EB11"><use href="#logo"/></svg>
+      <span>RANKD</span>
+    </a>
+    <div class="foot-links">
+      <a href="https://www.instagram.com/rankd.oficial/" target="_blank" rel="noopener">Instagram @rankd.oficial</a>
+      <a href="mailto:rankapp@outlook.com">rankapp@outlook.com</a>
+    </div>
+    <p>© <span id="ano">2026</span> Rankd. Transforme seu treino em competição.</p>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   CONFIGURAÇÃO: edite só esta parte
+   ========================================================= */
+
+/* 1) Para onde vão as inscrições.
+      Depois da primeira inscrição, o FormSubmit manda um e-mail de ativação
+      para rankapp@outlook.com. Clique em "Activate".
+      Ele também envia um código aleatório: troque o e-mail abaixo por esse
+      código para esconder seu endereço de robôs de spam.
+      Ex.: 'https://formsubmit.co/ajax/a1b2c3d4e5f6...'                     */
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/rankapp@outlook.com';
+
+/* 2) Depoimentos. Enquanto a lista estiver vazia, o site mostra o convite
+      para o grupo de teste. Para publicar um depoimento real, adicione assim:
+      { texto: 'Nunca faltei tanto treino quanto antes do Rankd...', nome: 'Ana', detalhe: 'Corrida, Curitiba' },
+*/
+const DEPOIMENTOS = [
+];
+
+/* =========================================================
+   Daqui pra baixo não precisa mexer
+   ========================================================= */
+
+document.getElementById('ano').textContent = new Date().getFullYear();
+
+/* ---------- Envio dos formulários ---------- */
+const params = new URLSearchParams(location.search);
+document.querySelectorAll('form[data-signup]').forEach(form => {
+  const origem = form.dataset.signup;
+  const status = document.querySelector(`.form-status[data-for="${origem}"]`);
+  const btn = form.querySelector('button[type="submit"]');
+  const label = btn.textContent;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.elements._honey.value) return; // robô
+    const email = form.elements.email;
+    if (!email.value || !email.checkValidity()) {
+      status.className = 'form-status err';
+      status.textContent = 'Confira o e-mail: parece que falta alguma coisa.';
+      email.focus();
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form));
+    delete data._honey;
+    Object.assign(data, {
+      origem_no_site: origem,
+      indicado_por: params.get('ref') || '',
+      utm_source: params.get('utm_source') || '',
+      utm_campaign: params.get('utm_campaign') || '',
+      _subject: 'Nova inscrição na lista do Rankd',
+      _template: 'table'
+    });
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    status.className = 'form-status';
+    status.textContent = '';
+
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || String(json.success) === 'false') throw new Error(json.message || 'erro');
+      status.className = 'form-status ok';
+      status.textContent = 'Você está na lista. Fica de olho no seu e-mail.';
+      form.reset();
+    } catch (err) {
+      status.className = 'form-status err';
+      status.textContent = 'Não deu para enviar agora. Tente de novo em alguns segundos.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = label;
+    }
+  });
+});
+
+/* ---------- Depoimentos ---------- */
+if (DEPOIMENTOS.length) {
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  document.getElementById('quotes').innerHTML =
+    '<div class="quotes">' + DEPOIMENTOS.map(d => `
+      <figure class="quote">
+        <blockquote>${esc(d.texto)}</blockquote>
+        <figcaption>${esc(d.nome)}<span>${esc(d.detalhe || '')}</span></figcaption>
+      </figure>`).join('') + '</div>';
+}
+
+/* ---------- Ranking ao vivo (hero) ---------- */
+(function () {
+  const rowsEl = document.getElementById('rows');
+  const toast = document.getElementById('toast');
+  const ROW = 58;
+  const START = 8420;
+  const players = [
+    { n: 'APEX_WOLF',  s: 9840, p: 'Dobro' },
+    { n: 'IRONCLAD_K', s: 9210, p: 'Bloqueio' },
+    { n: 'SWIFT_REX',  s: 8775, p: 'Arrancada' },
+    { n: 'Você',       s: START, p: 'Reverso', me: true }
+  ];
+  const fmt = n => n.toLocaleString('pt-BR');
+
+  players.forEach(pl => {
+    const el = document.createElement('div');
+    el.className = 'row' + (pl.me ? ' me' : '');
+    el.innerHTML = `<span class="pos"></span><span class="pname">${pl.n}</span><span class="power">⚡ ${pl.p}</span><span class="score"></span>`;
+    rowsEl.appendChild(el);
+    pl.el = el;
+  });
+
+  function layout() {
+    const sorted = [...players].sort((a, b) => b.s - a.s);
+    sorted.forEach((pl, i) => {
+      pl.el.style.transform = `translateY(${i * ROW}px)`;
+      pl.el.querySelector('.pos').textContent = i === 0 ? '👑' : i + 1;
+      pl.el.querySelector('.score').textContent = fmt(pl.s);
+    });
+    return sorted;
+  }
+  function say(html) {
+    toast.innerHTML = html;
+    toast.classList.remove('pop'); void toast.offsetWidth; toast.classList.add('pop');
+  }
+
+  layout();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const me = players.find(p => p.me);
+  let pause = 0;
+  setInterval(() => {
+    if (pause > 0) { pause--; if (pause === 0) { me.s = START; layout(); say('Nova semana. Ranking zerado. Quem treina primeiro?'); } return; }
+    const before = layout().indexOf(me);
+    me.s += 160 + Math.floor(Math.random() * 120);
+    const sorted = layout();
+    const after = sorted.indexOf(me);
+    if (after < before) {
+      const passed = sorted[after + 1].n;
+      if (after === 0) { say(`Você pegou o <b>#1</b>. Agora todo mundo quer te derrubar.`); pause = 3; }
+      else say(`Você acabou de passar o <b>${passed}</b>. Agora é o <b>#${after + 1}</b>.`);
+    }
+  }, 1700);
+})();
+</script>
+</body>
+</html>
