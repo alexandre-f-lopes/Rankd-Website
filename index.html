@@ -643,7 +643,17 @@ document.querySelectorAll('form[data-signup]').forEach(form => {
       form.reset();
     } catch (err) {
       status.className = 'form-status err';
-      status.textContent = 'Não deu para enviar agora. Tente de novo em alguns segundos.';
+      const msg = String(err && err.message || '').toLowerCase();
+      if (location.protocol === 'file:') {
+        status.textContent = 'O formulário só funciona com o site publicado (não abrindo o arquivo no computador).';
+      } else if (msg.includes('activat')) {
+        status.textContent = 'Formulário aguardando ativação. Confira o e-mail de ativação do FormSubmit em rankapp@outlook.com.';
+      } else if (msg.includes('failed to fetch') || msg.includes('network')) {
+        status.textContent = 'Não foi possível conectar. Desative o bloqueador de anúncios e tente de novo.';
+      } else {
+        status.textContent = 'Não deu para enviar agora. Tente de novo em alguns segundos.';
+      }
+      console.warn('Rankd form error:', err && err.message);
     } finally {
       btn.disabled = false;
       btn.textContent = label;
